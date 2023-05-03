@@ -1,28 +1,17 @@
-[![](https://jitpack.io/v/a365344743s/MediaCompressTelegram.svg)](https://jitpack.io/#a365344743s/MediaCompressTelegram)
+[![](https://jitpack.io/v/mnw007/MediaCompress.svg)](https://jitpack.io/#mnw007/MediaCompress)
 
-# MediaCompressTelegram
-Android 视频、图片(暂未实现)、音频(暂未实现)压缩库 from [Telegram](https://github.com/DrKLO/Telegram)
-
-对比 [MediaCompressSignal](https://github.com/a365344743s/MediaCompressSignal)
-
-| 项目            | Telegram | Signal |
-|---------------|:--------:|:------:|
-| 最低Android版本支持 |    18    |   26   |
-| aar大小         |   6.8M   |  114K  |
-
-Telegram 6.8M的大小是包含4个abi架构的so大小，实际使用单个abi会减小4.6-5M
-Signal 114K的大小也包含4个abi架构的so大小，实际使用单个abi会减小6.8-11.4K
+# MediaCompress
+Android video, picture (not yet implemented), audio (not yet implemented) compression library from [Telegram](https://github.com/DrKLO/Telegram)
 
 # Telegram Commit
-提交： 6cb1cdf898a8cfe025b907b79d074c4903d4b424 [6cb1cdf]
-父级： 43401a515c
-作者： xaxtix <xardas3200@gmail.com>
-日期： 2022年7月4日 15:54:30
-提交者： xaxtix
-update to 8.8.5
+Commit: 6cb1cdf898a8cfe025b907b79d074c4903d4b424 [6cb1cdf]
+Parent: 43401a515c
+Author: xaxtix xardas3200@gmail.com
+Date: 2022-07-04 15:54:30
+Submitted by: xaxtix update to 8. 8.5
 
 # USAGE
-## Telegram(最低支持AndroidApi18)
+## Telegram (minimum support AndroidApi18)
 
 Step 1. Add the JitPack repository to your build file
 
@@ -40,50 +29,52 @@ Step 2. Add the dependency
         implementation 'com.github.a365344743s:MediaCompressTelegram:1.0.0'
 	}
 
-### 初始化
+### Initialization
 
     org.telegram.messenger.VideoConvertUtil.init(scheduler);
 
-### 开始转换
+### Start converting
+    
+    VideoReqCompressionInfo info = new VideoReqCompressionInfo(videoPath, attachPathTelegram, 1000_000, 720);
+    Integer convertId = org.telegram.messenger.VideoConvertUtil.startVideoConvert(info, listener)
 
-    Integer convertId = org.telegram.messenger.VideoConvertUtil.startVideoConvert(srcPath, dstPath, listener)
-
-### 取消转换
+### Cancel conversion
 
     org.telegram.messenger.VideoConvertUtil.stopVideoConvert(int convertId);
 
-# 输出视频控制
+# Output Video Control
 
-## 说明
-视频码率决定了视频清晰度，码率越大视频越清晰，但是文件会变大。
+## Illustrate
+The video bit rate determines the video clarity. The higher the bit rate, the clearer the video, but the file size will become larger.
 
-视频分辨率决定了视频宽高，分辨率越大视频宽高越大。
+The video resolution determines the video width and height, the higher the resolution, the larger the video width and height.
 
-相同视频码率下，视频分辨率越大，视频越模糊。
+Under the same video bit rate, the higher the video resolution, the blurrier the video.
 
-可以控制 输出视频码率、最大边。
+You can control the output video bit rate and the maximum side.
 
-## 计算方法
-1.根据源视频分辨率，计算目标视频分辨率。
+## Calculation method
+1. Calculate the target video resolution based on the source video resolution.
+
 
     VideoConvertUtil.createCompressionSettings(String videoPath)
 
-若 源视频最大边 > 1280，目标视频最大边 = 1280。
+If the maximum side of the source video > 1280, the maximum side of the target video = 1280.
 
-若 1280 >= 源视频最大边 > 854, 目标视频最大边 = 848。
+If 1280 >= maximum side of source video > 854, maximum side of target video = 848.
 
-若 854 >= 源视频最大边 > 640, 目标视频最大边 = 640。
+If 854 >= maximum side of source video > 640, maximum side of target video = 640.
 
-若 源视频最大边 <= 640, 目标视频最大边 = 432。
+If the maximum side of the source video <= 640, the maximum side of the target video = 432.
 
-2.计算目标视频码率
+2.Calculate the target video bit rate
 
     VideoConvertUtil.makeVideoBitrate(int originalHeight, int originalWidth, int originalBitrate, int height, int width)
 
-以 1080p、720p、480p 分出四等码率范围，最终计算出目标视频码率。
+1080p, 720p, 480p are divided into four bit rate ranges, and finally the target video bit rate is calculated.
 
-## 视频码率控制
-可以修改 VideoConvertUtil.makeVideoBitrate 中的码率计算方法。
+## Video rate control
+You can modify the bit rate calculation method in VideoConvertUtil.makeVideoBitrate.
 
-## 视频分辨率控制
-可以修改 VideoConvertUtil.createCompressionSettings 中的视频分辨率计算方法
+## Video Resolution Control
+The video resolution calculation method in VideoConvertUtil.createCompressionSettings can be modified
