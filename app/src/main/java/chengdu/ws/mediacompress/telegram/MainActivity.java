@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ import org.telegram.messenger.VideoConvertUtil;
 import org.telegram.messenger.VideoEditedInfo;
 import org.telegram.messenger.VideoReqCompressionInfo;
 
+import java.io.File;
 import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,13 +38,18 @@ public class MainActivity extends AppCompatActivity {
         btnSelect.setOnClickListener(v -> pickVideoFromGallery());
 
         telegramBTN.setOnClickListener(view -> {
-            String attachPathTelegram = this.getFilesDir() + "/convert/" + UUID.randomUUID().toString()+".mp4";
+            File dir = new File(
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS),
+                    "convert"
+            );
+            if (!dir.exists() && !dir.mkdir()) return;
+            File vi = new File(dir, UUID.randomUUID().toString()+".mp4");
 //            compress();
-            VideoReqCompressionInfo info = new VideoReqCompressionInfo(videoPath, attachPathTelegram, 1000_000, 720);
+            VideoReqCompressionInfo info = new VideoReqCompressionInfo(videoPath, vi.getAbsolutePath(), 1_000_000, 720);
             Integer telegramId = VideoConvertUtil.startVideoConvert(info, new MediaController.ConvertorListener() {
                 @Override
                 public void onConvertStart(VideoEditedInfo info, float progress, long lastFrameTimestamp) {
-
+                    Log.d("convertInfo: ", info.toString());
                 }
 
                 @Override

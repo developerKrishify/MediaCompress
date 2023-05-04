@@ -137,7 +137,7 @@ public class VideoConvertUtil {
             videoEditedInfo.resultWidth = Math.round(videoEditedInfo.originalWidth * scale / 2) * 2;
             videoEditedInfo.resultHeight = Math.round(videoEditedInfo.originalHeight * scale / 2) * 2;
         }
-        if (info.maxSize != maxSize) {
+        if (info.maxSize > 0 && info.maxSize != maxSize) {
             float scale = videoEditedInfo.originalWidth > videoEditedInfo.originalHeight ? info.maxSize / videoEditedInfo.originalWidth : info.maxSize / videoEditedInfo.originalHeight;
             videoEditedInfo.resultWidth = Math.round(videoEditedInfo.originalWidth * scale / 2) * 2;
             videoEditedInfo.resultHeight = Math.round(videoEditedInfo.originalHeight * scale / 2) * 2;
@@ -153,7 +153,7 @@ public class VideoConvertUtil {
             bitrate = info.bitRate;
         }
 
-        if (info.frameRate > 0 && info.bitRate < videoFramerate) {
+        if (info.frameRate > 0 && info.frameRate < videoFramerate) {
             videoEditedInfo.framerate = info.frameRate;
         }
 
@@ -177,6 +177,8 @@ public class VideoConvertUtil {
                 e.printStackTrace();
             }
             retriever.release();
+        } catch (Exception e) {
+            Log.d("retriever error:", e.getLocalizedMessage());
         }
         return bitrate;
     }
