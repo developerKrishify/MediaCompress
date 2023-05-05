@@ -26,21 +26,21 @@ Add it in your root build.gradle at the end of repositories:
 Step 2. Add the dependency
 
 	dependencies {
-        implementation 'com.github.a365344743s:MediaCompressTelegram:1.0.0'
+		implementation 'com.github.developerKrishify:MediaCompress:0.1'
 	}
 
 ### Initialization
 
-    org.telegram.messenger.VideoConvertUtil.init(scheduler);
+    VideoConvertUtil.init(scheduler);
 
 ### Start converting
     
     VideoReqCompressionInfo info = new VideoReqCompressionInfo(videoPath, attachPathTelegram, 1000_000, 720);
-    Integer convertId = org.telegram.messenger.VideoConvertUtil.startVideoConvert(info, listener)
+    Integer convertId = VideoConvertUtil.startVideoConvert(info, listener)
 
 ### Cancel conversion
 
-    org.telegram.messenger.VideoConvertUtil.stopVideoConvert(int convertId);
+    VideoConvertUtil.stopVideoConvert(int convertId);
 
 # Output Video Control
 
