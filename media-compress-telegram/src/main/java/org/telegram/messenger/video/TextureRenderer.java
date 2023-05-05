@@ -22,7 +22,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import com.github.mnw007.mediacompress.BuildConfig;
+import com.github.developerKrishify.mediacompress.BuildConfig;
 
 public class TextureRenderer {
     private static final String TAG = TextureRenderer.class.getSimpleName();

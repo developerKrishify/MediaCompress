@@ -1,4 +1,4 @@
-[![](https://jitpack.io/v/mnw007/MediaCompress.svg)](https://jitpack.io/#mnw007/MediaCompress)
+[![](https://jitpack.io/v/developerKrishify/MediaCompress.svg)](https://jitpack.io/#developerKrishify/MediaCompress)
 
 # MediaCompress
 Android video, picture (not yet implemented), audio (not yet implemented) compression library from [Telegram](https://github.com/DrKLO/Telegram)

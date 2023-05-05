@@ -7,7 +7,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import com.github.mnw007.mediacompress.BuildConfig;
+import com.github.developerKrishify.mediacompress.BuildConfig;
 
 public class FilterShaders {
     private static final String TAG = FilterShaders.class.getSimpleName();

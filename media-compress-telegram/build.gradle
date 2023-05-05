@@ -56,9 +56,9 @@ afterEvaluate {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
                 from components.release
-                groupId = 'com.github.mnw007'
+                groupId = 'com.github.developerKrishify'
                 artifactId = 'MediaCompress'
-                version = '1.3'
+                version = '0.1'
             }
         }
     }
